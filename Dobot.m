@@ -37,7 +37,7 @@ function GetDobot(self)
 %     L3.offset = pi/2;
       
     self.model = SerialLink([L1 L2 L3 L4 L5],'name','Dobot');
-    self.model.base = eye(4);
+    self.model.base = self.model.base * transl(-0.5,0,0.79);
 %      self.model.plot(zeros(1,5));
 end
 %% PlotAndColourRobot
