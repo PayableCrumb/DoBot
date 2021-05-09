@@ -32,17 +32,9 @@ function GetDobot(self)
     L3.qlim = [15 170]*pi/180;
     L4.qlim = [-90 90]*pi/180;
     L5.qlim = [-85 85]*pi/180;
-
-
-% q_{model} = [0,pi/4,pi/2,pi/4,0]
-
-    L2.offset = -pi/4;
-    L3.offset = pi/2;
-    L4.offset = -pi/4;
       
     self.model = SerialLink([L1 L2 L3 L4 L5],'name','Dobot');
     self.model.base = self.model.base * transl(-0.35,0,0.78);
-%     self.model.plot(zeros(1,5));
 end
 %% PlotAndColourRobot
 % Given a robot index, add the glyphs (vertices and faces) and
