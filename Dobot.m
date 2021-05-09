@@ -3,13 +3,14 @@ classdef Dobot < handle
         %> robot model
         model;
         workspace = [-1 1 -1 1 -0.3 1]; 
-        
-        %> Joint 2: Actual vs Suggested real joint limitsactual joint limits less than 0 cause problems with IMU (officially     qlimDegs = [-5,85], suggest it is better to be [5,80] )
-        actualRealQ2lim = deg2rad([-5,85]);
-        suggestedRealQ2lim = deg2rad([5,80]);
-        %> Joint 3: Actual vs Suggested real joint limitsactual joint limits less than 0 (or more than 90) cause problems with IMU (officially q2limDegs = -10 to 95 )
-        actualRealQ3lim = deg2rad([-10,95]);
-        suggestedRealQ3lim = deg2rad([5,85]);
+        q = [0 -pi/4 pi/2 -pi/4 0];
+    end
+    
+    methods (Static)%% Calculation for robot pose
+%% Calculate q4
+function CalculateQ4()
+    q4 = pi - q2 - q3;
+end
     end
 
     methods%% Class for Dobot simulation
@@ -26,19 +27,22 @@ function GetDobot(self)
     L4 = Link('d',0,     'a',0.08,    'alpha',-pi/2);
     L5 = Link('d',0,     'a',0,       'alpha',0);
     
-%     L1.qlim = [-360 360]*pi/180;
-%     L2.qlim = [-90 90]*pi/180;
-%     L3.qlim = [-160 160]*pi/180;
-%     L4.qlim = [-360 360]*pi/180;
-%     L5.qlim = [-360 360]*pi/180;
-%     L6.qlim = [-360 360]*pi/180;
-% 
-%     L2.offset = -pi/4;
-%     L3.offset = pi/2;
+    L1.qlim = [-135 135]*pi/180;
+    L2.qlim = [-75 0]*pi/180;
+    L3.qlim = [15 170]*pi/180;
+    L4.qlim = [-90 90]*pi/180;
+    L5.qlim = [-85 85]*pi/180;
+
+
+% q_{model} = [0,pi/4,pi/2,pi/4,0]
+
+    L2.offset = -pi/4;
+    L3.offset = pi/2;
+    L4.offset = -pi/4;
       
     self.model = SerialLink([L1 L2 L3 L4 L5],'name','Dobot');
-    self.model.base = self.model.base * transl(-0.5,0,0.79);
-%      self.model.plot(zeros(1,5));
+    self.model.base = self.model.base * transl(-0.35,0,0.78);
+%     self.model.plot(zeros(1,5));
 end
 %% PlotAndColourRobot
 % Given a robot index, add the glyphs (vertices and faces) and
@@ -51,7 +55,7 @@ function PlotAndColourRobot(self)%robot,workspace)
     end
 
     % Display robot
-    self.model.plot3d(zeros(1,self.model.n),'noarrow','workspace',self.workspace);
+    self.model.plot3d(self.q,'noarrow','workspace',self.workspace);
     if isempty(findobj(get(gca,'Children'),'Type','Light'))
         camlight
     end  
@@ -72,49 +76,10 @@ function PlotAndColourRobot(self)%robot,workspace)
         end
     end
 end        
-%% create joint limits for Dobot
-function PlotLimits(self)
-    titleStr = {'Model limits given ACTUAL real robot limits','Model limits given SUGGESTED real robot limits'};
-    qlimActualAndSuggested = {self.model.qlim,self.model.qlim};
-    qlimActualAndSuggested{1}(2,:) = self.actualRealQ2lim;
-    qlimActualAndSuggested{1}(3,:) = self.actualRealQ3lim;
-    qlimActualAndSuggested{2}(2,:) = self.suggestedRealQ2lim;
-    qlimActualAndSuggested{2}(3,:) = self.suggestedRealQ3lim;            
-
-    fig_h = figure;
-    for limitsIndex = 1:size(titleStr,2)
-        clf(fig_h);
-        data = [];
-        lowerLimit = [];
-        upperLimit = [];
-    
-        qlim = qlimActualAndSuggested{ limitsIndex };
-        for q2 = qlim(2,1):0.01:qlim(2,2)
-            for theta3 = qlim(3,1):0.01:qlim(3,2)+0.01
-                q3 = pi/2 -q2 + theta3;
-                data = [data;q2,q3]; %#ok<AGROW>
-                if theta3 <= qlim(3,1)
-                    lowerLimit = [lowerLimit;q2,q3]; %#ok<AGROW>
-                elseif qlim(3,2) <= theta3
-                    upperLimit = [upperLimit;q2,q3]; %#ok<AGROW>
-                end
-            end
-        end
-    plot(rad2deg(data(:,1)),rad2deg(data(:,2)),'g.');
-    hold on;
-    plot(rad2deg(lowerLimit(:,1)),rad2deg(lowerLimit(:,2)),'b');
-    plot(rad2deg(upperLimit(:,1)),rad2deg(upperLimit(:,2)),'r');
-    title(titleStr{limitsIndex})
-    set(gca,'fontSize',15)
-    xlabel('q2')
-    ylabel('q3')
-    grid on;
-        axis([-10,90,-15,200]);
-        drawnow();
-        img = getframe(gcf);
-        imwrite(img.cdata, [titleStr{limitsIndex}, '.jpg']);
-    end
-    close(fig_h);
+%% Determine the base of the robot and plot the 3D model
+function DobotBaseAndPlot(self,position)
+    self.model.base = transl(position);
+    self.PlotAndColourRobot();
 end
     end
 end
