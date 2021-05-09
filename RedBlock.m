@@ -44,7 +44,7 @@ classdef RedBlock < handle
        function move(self,NewPose)
       
                
-                self.RedBlockPose = NewPose;
+                self.RedBlockPose = NewPose*transl(0,0,0.04);
                 % Transform the vertices
                 self.updatedPoints = [self.RedBlockPose * [self.RedBlockVerts,ones(self.RedBlockVertexCount,1)]']';
     
