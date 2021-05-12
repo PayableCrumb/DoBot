@@ -3,7 +3,9 @@ classdef Dobot < handle
         %> robot model
         model;
         workspace = [-1 1 -1 1 -0.3 1]; 
-        q = [0 -pi/4 pi/2 -pi/4 0];
+%         q = [0 pi/4 pi/2 pi/4 0];
+        q = [0 pi/4 pi/4 0 0];
+%         q = [0 0 0 0 0];
     end
     
     methods (Static)%% Calculation for robot pose
@@ -21,20 +23,25 @@ function self = Dobot
 end
 %% Dobot model
 function GetDobot(self)
-    L1 = Link('d',0,     'a',0,       'alpha',-pi/2);
-    L2 = Link('d',0,     'a',0.135,   'alpha',0);
-    L3 = Link('d',0,     'a',0.147,   'alpha',0);
-    L4 = Link('d',0,     'a',0.08,    'alpha',pi/2);
-    L5 = Link('d',0,     'a',0,       'alpha',0);
+    L1 = Link('d',0,       'a',0,       'alpha',-pi/2);
+    L2 = Link('d',0,       'a',0.135,   'alpha',0);
+    L3 = Link('d',0,       'a',0.147,   'alpha',0);
+    L4 = Link('d',0,       'a',0.06,    'alpha',pi/2);
+    L5 = Link('d',-0.06,   'a',0,       'alpha',0);
     
     L1.qlim = [-135 135]*pi/180;
-    L2.qlim = [-75 0]*pi/180;
+    L2.qlim = [5 80]*pi/180;
     L3.qlim = [15 170]*pi/180;
     L4.qlim = [-90 90]*pi/180;
     L5.qlim = [-85 85]*pi/180;
+    
+    L2.offset = -pi/2;
+    L3.offset = pi/4;
+    L4.offset = -pi/4;
       
     self.model = SerialLink([L1 L2 L3 L4 L5],'name','Dobot');
-%    self.model.base = self.model.base * transl(-0.35,0,0.78);
+%     self.model.base = self.model.base * transl(-0.35,0,0.78);
+    self.model.plot(self.q)
 end
 %% PlotAndColourRobot
 % Given a robot index, add the glyphs (vertices and faces) and
