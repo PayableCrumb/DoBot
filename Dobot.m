@@ -40,8 +40,8 @@ function GetDobot(self)
     L4.offset = -pi/4;
       
     self.model = SerialLink([L1 L2 L3 L4 L5],'name','Dobot');
-%     self.model.base = self.model.base * transl(-0.35,0,0.78);
-    self.model.plot(self.q)
+    self.model.base = self.model.base * transl(0,0,0.865);
+%    self.model.plot(self.q)
 end
 %% PlotAndColourRobot
 % Given a robot index, add the glyphs (vertices and faces) and
