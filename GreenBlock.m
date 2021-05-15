@@ -44,7 +44,7 @@ classdef GreenBlock < handle
        function move(self,NewPose)
       
                
-                self.GreenBlockPose = NewPose*transl(0,0,0.04);
+                self.GreenBlockPose = NewPose;
                 % Transform the vertices
                 self.updatedPoints = [self.GreenBlockPose * [self.GreenBlockVerts,ones(self.GreenBlockVertexCount,1)]']';
     
