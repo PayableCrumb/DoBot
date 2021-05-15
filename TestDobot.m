@@ -181,4 +181,133 @@ for i = 1:50                                                                % Mo
     drawnow();
 end
 
+%% Real Dobot Run
+% Moving 1
+jointTarget = [0,pi/4,pi/4,0]; % Remember that the Dobot has 4 joints by default.
 
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+pause(2);
+% 
+jointTarget = [qMatrix(50,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+pause(3);
+
+% Turn on the tool
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [1]; % Send 1 for on and 0 for off 
+send(toolStatePub,toolStateMsg);
+
+jointTarget = [qMatrix5(50,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+pause(2);
+
+jointTarget = [qMatrix1(50,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+pause(3.5);
+
+% Turn off the tool
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [0]; % Send 1 for on and 0 for off 
+send(toolStatePub,toolStateMsg);
+
+jointTarget = [qMatrix1(1,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+% Moving 2
+pause(2);
+
+jointTarget = [qMatrix2(50,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+pause(3);
+
+% Turn on the tool
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [1]; % Send 1 for on and 0 for off 
+send(toolStatePub,toolStateMsg);
+
+jointTarget = [qMatrix6(50,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+pause(2);
+
+jointTarget = [qMatrix3(50,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+pause(3.5);
+
+% Turn on the tool
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [0]; % Send 1 for on and 0 for off 
+send(toolStatePub,toolStateMsg);
+
+jointTarget = [qMatrix3(1,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
+
+pause(2);
+
+jointTarget = [qMatrix4(50,1:3),0]; % Remember that the Dobot has 4 joints by default.
+
+[targetJointTrajPub,targetJointTrajMsg] = rospublisher('/dobot_magician/target_joint_states');
+trajectoryPoint = rosmessage("trajectory_msgs/JointTrajectoryPoint");
+trajectoryPoint.Positions = jointTarget;
+targetJointTrajMsg.Points = trajectoryPoint;
+
+send(targetJointTrajPub,targetJointTrajMsg);
