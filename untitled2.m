@@ -22,7 +22,7 @@ function varargout = GUIDE(varargin)
 
 % Edit the above text to modify the response to help GUIDE
 
-% Last Modified by GUIDE v2.5 16-May-2021 20:57:26
+% Last Modified by GUIDE v2.5 16-May-2021 22:10:02
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -82,6 +82,7 @@ function btn_Load_Callback(hObject, eventdata, handles)
 % hObject    handle to btn_Load (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+cla(handles.axes1,'reset');
 set(handles.btn_eStop, 'userdata', 1);
 handles = guidata(hObject);
 i = 1;
@@ -489,4 +490,14 @@ disp('Light Curtain');
 cla(handles.axes1,'reset');
 %axes(handles.axes3);
 TestLightCurtain
+guidata(hObject,handles);
+
+
+% --- Executes on button press in btn_Control.
+function btn_Control_Callback(hObject, eventdata, handles)
+handles = guidata(hObject);
+disp('Light Curtain');
+cla(handles.axes1,'reset');
+%axes(handles.axes3);
+untitled
 guidata(hObject,handles);
