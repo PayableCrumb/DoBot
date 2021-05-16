@@ -2,6 +2,18 @@
 robot = Dobot;
 hold on;
 
+% Base
+surf([-1,-1;1,1],[-1,1;-1,1],[0.01,0.01;0.01,0.01],'CData',imread('concrete.jpg'),'FaceColor','texturemap');
+hold on
+
+% Table
+[f,v,data] = plyread('table.ply','tri');
+vertexColours = [data.vertex.red, data.vertex.green, data.vertex.blue]/255;
+
+table_h = trisurf(f,v(:,1),v(:,2),v(:,3)...
+    ,'FaceVertexCData',vertexColours,'EdgeColor','interp','EdgeLighting','flat');
+hold on
+
 %% Create Cube(obstacle)
 centerpnt = [0.25,0.2,0.865];
 side = 0.1;
