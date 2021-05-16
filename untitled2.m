@@ -474,7 +474,9 @@ function pushbutton6_Callback(hObject, eventdata, handles)
 % --- Executes on button press in btn_Collision.
 function btn_Collision_Callback(hObject, eventdata, handles)
 handles = guidata(hObject);
-axes(handles.axes2);
+disp('Collision');
+cla(handles.axes1,'reset');
+%axes(handles.axes2);
 TestCollision
 guidata(hObject,handles);
 
@@ -484,6 +486,7 @@ guidata(hObject,handles);
 function Light_Callback(hObject, eventdata, handles)
 handles = guidata(hObject);
 disp('Light Curtain');
-axes(handles.axes3);
+cla(handles.axes1,'reset');
+%axes(handles.axes3);
 TestLightCurtain
 guidata(hObject,handles);
