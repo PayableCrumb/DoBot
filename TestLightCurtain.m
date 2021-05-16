@@ -12,13 +12,13 @@ hold on
 axis equal;
 
 % fence
-[f,v,data] = plyread('fence.ply','tri');
-vertexColours = [data.vertex.red, data.vertex.green, data.vertex.blue]/255;
+%[f,v,data] = plyread('fence.ply','tri');
+%vertexColours = [data.vertex.red, data.vertex.green, data.vertex.blue]/255;
 
-fence_h = trisurf(f,v(:,1),v(:,2),v(:,3)...
-    ,'FaceVertexCData',vertexColours,'EdgeColor','interp','EdgeLighting','flat');
+%fence_h = trisurf(f,v(:,1),v(:,2),v(:,3)...
+%    ,'FaceVertexCData',vertexColours,'EdgeColor','interp','EdgeLighting','flat');
 
-hold on
+%hold on
 
 % Base
 surf([-2,-2;2,2],[-2,2;-2,2],[0.01,0.01;0.01,0.01],'CData',imread('concrete.jpg'),'FaceColor','texturemap');
