@@ -21,22 +21,22 @@ axis equal;
 %hold on
 
 % Base
-surf([-2,-2;2,2],[-2,2;-2,2],[0.01,0.01;0.01,0.01],'CData',imread('concrete.jpg'),'FaceColor','texturemap');
+surf([-1,-1;1,1],[-1,1;-1,1],[0.01,0.01;0.01,0.01],'CData',imread('concrete.jpg'),'FaceColor','texturemap');
 hold on
 
 
 % Box
-[f,v,data] = plyread('Redbox.ply','tri');                                           %Red Box
-vertexColours = [data.vertex.red, data.vertex.green, data.vertex.blue]/255;
+%[f,v,data] = plyread('Redbox.ply','tri');                                           %Red Box
+%vertexColours = [data.vertex.red, data.vertex.green, data.vertex.blue]/255;
 
-Redbox_h = trisurf(f,v(:,1),v(:,2),v(:,3)...
-    ,'FaceVertexCData',vertexColours,'EdgeColor','interp','EdgeLighting','flat');
+%Redbox_h = trisurf(f,v(:,1),v(:,2),v(:,3)...
+%    ,'FaceVertexCData',vertexColours,'EdgeColor','interp','EdgeLighting','flat');
 
-[f,v,data] = plyread('Greenbox.ply','tri');                                         %Green Box
-vertexColours = [data.vertex.red, data.vertex.green, data.vertex.blue]/255;
+%[f,v,data] = plyread('Greenbox.ply','tri');                                         %Green Box
+%vertexColours = [data.vertex.red, data.vertex.green, data.vertex.blue]/255;
 
-Greenbox_h = trisurf(f,v(:,1),v(:,2),v(:,3)...
-    ,'FaceVertexCData',vertexColours,'EdgeColor','interp','EdgeLighting','flat');
+%Greenbox_h = trisurf(f,v(:,1),v(:,2),v(:,3)...
+%    ,'FaceVertexCData',vertexColours,'EdgeColor','interp','EdgeLighting','flat');
 
 
 % Dobot
@@ -71,7 +71,7 @@ q2 = [2.3562 pi/4 pi/4 0 0];
 qMatrix1 = jtraj(q1,q2,steps);
 
 for i = 1:steps
-    x = x - 0.02;
+    x = x - 0.01;
     sphereCenter = [x,1,0.2];
     radius = 0.2;
     [X,Y,Z] = sphere(20);
