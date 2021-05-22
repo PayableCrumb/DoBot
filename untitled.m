@@ -155,7 +155,11 @@ J = handles.robot.model.getpos;
 JJ = handles.robot.model.ikcon(T,J);
 qMatrix = jtraj(J,JJ,50);
 
-animate(handles.robot.model,qMatrix)
+%animate(handles.robot.model,qMatrix)
+for i = 1:50
+    handles.robot.model.animate(qMatrix(i,:));                                    % Moving the robot near the RedBlock
+    drawnow();
+end
 
 % handles.edit1.String = num2str(floor(JJ(1)));
 % handles.edit2.String = num2str(floor(JJ(2)));
